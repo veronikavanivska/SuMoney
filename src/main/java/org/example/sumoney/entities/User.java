@@ -23,12 +23,18 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String username;
     private String email;
-
     private String password;
 
+
+    @Column(name = "token_version", nullable = false)
+    private Long tokenVersion = 0L;
+
     @Builder.Default
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Delegation> delegation = new ArrayList<>();
+
+    public void incrementTokenVersion() {
+        this.tokenVersion++;
+    }
 }

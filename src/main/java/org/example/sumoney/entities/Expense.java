@@ -42,4 +42,8 @@ public class Expense {
     @JoinColumn(name = "delegation_id")
     private Delegation delegation;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 3)
+    private CurrencyCode currency;
+
 }

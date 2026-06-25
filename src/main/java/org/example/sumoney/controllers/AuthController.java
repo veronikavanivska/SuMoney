@@ -1,7 +1,5 @@
 package org.example.sumoney.controllers;
 
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.jwt.Jwt;
 import org.example.sumoney.dto.requests.ChangePasswordRequest;
 import org.example.sumoney.dto.requests.LoginRequest;
 import org.example.sumoney.dto.requests.RefreshRequest;

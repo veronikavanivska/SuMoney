@@ -11,8 +11,6 @@ services:
     depends_on:
       sumoney-postgres:
         condition: service_healthy
-      minio:
-        condition: service_healthy
     networks:
       - money
 

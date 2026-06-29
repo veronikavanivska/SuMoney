@@ -23,6 +23,10 @@ public interface ExpenseRepository extends JpaRepository<Expense, Long>,
             Long delegationId,
             Long userId
     );
+    List<Expense> findByDelegation_IdAndDelegation_User_IdOrderByExpenseDateAsc(
+            Long delegationId,
+            Long userId
+    );
 
     @Query("""
         select

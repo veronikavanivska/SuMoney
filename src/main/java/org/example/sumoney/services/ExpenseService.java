@@ -121,25 +121,46 @@ public class ExpenseService {
         return "Deleted expense";
     }
 
-    public FileStorageService.StoredBytes getReceiptFile(Long userId, Long delegationId, Long expenseId) {
-        Expense expense = expenseRepository
-                .findByIdAndDelegation_IdAndDelegation_User_Id(
-                        expenseId,
-                        delegationId,
-                        userId
-                )
-                .orElseThrow(() -> new IllegalArgumentException("Expense not found"));
+//    public FileStorageService.StoredBytes getReceiptFile(Long userId, Long delegationId, Long expenseId) {
+//        Expense expense = expenseRepository
+//                .findByIdAndDelegation_IdAndDelegation_User_Id(
+//                        expenseId,
+//                        delegationId,
+//                        userId
+//                )
+//                .orElseThrow(() -> new IllegalArgumentException("Expense not found"));
+//
+//        if (expense.getReceiptObjectName() == null) {
+//            throw new IllegalArgumentException("Receipt not found");
+//        }
+//
+//        return fileStorageService.getFileBytes(
+//                expense.getReceiptObjectName(),
+//                expense.getReceiptContentType()
+//        );
+//    }
+public String getReceiptUrl(
+        Long userId,
+        Long delegationId,
+        Long expenseId
+) {
+    Expense expense = expenseRepository
+            .findByIdAndDelegation_IdAndDelegation_User_Id(
+                    expenseId,
+                    delegationId,
+                    userId
+            )
+            .orElseThrow(() -> new IllegalArgumentException("Expense not found"));
 
-        if (expense.getReceiptObjectName() == null) {
-            throw new IllegalArgumentException("Receipt not found");
-        }
-
-        return fileStorageService.getFileBytes(
-                expense.getReceiptObjectName(),
-                expense.getReceiptContentType()
-        );
+    if (expense.getReceiptObjectName() == null) {
+        throw new IllegalArgumentException("Receipt not found");
     }
 
+    return fileStorageService.getFileUrl(
+            expense.getReceiptObjectName(),
+            expense.getReceiptContentType()
+    );
+}
     private void validateCreateExpenseRequest(CreateExpenseRequest request) {
         if (request.getTitle() == null || request.getTitle().isBlank()) {
             throw new IllegalArgumentException("Title is required");

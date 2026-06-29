@@ -35,25 +35,25 @@ services:
     networks:
       - money
 
-  minio:
-    image: minio/minio:latest
-    container_name: sumoney-minio
-    command: server /data --console-address ":9001"
-    environment:
-      MINIO_ROOT_USER: ${MINIO_ACCESS_KEY}
-      MINIO_ROOT_PASSWORD: ${MINIO_SECRET_KEY}
-    ports:
-      - "9000:9000"
-      - "9001:9001"
-    volumes:
-      - minio_data:/data
-    healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:9000/minio/health/live || exit 1"]
-      interval: 10s
-      timeout: 5s
-      retries: 10
-    networks:
-      - money
+#  minio:
+#    image: minio/minio:latest
+#    container_name: sumoney-minio
+#    command: server /data --console-address ":9001"
+#    environment:
+#      MINIO_ROOT_USER: ${MINIO_ACCESS_KEY}
+#      MINIO_ROOT_PASSWORD: ${MINIO_SECRET_KEY}
+#    ports:
+#      - "9000:9000"
+#      - "9001:9001"
+#    volumes:
+#      - minio_data:/data
+#    healthcheck:
+#      test: ["CMD-SHELL", "curl -f http://localhost:9000/minio/health/live || exit 1"]
+#      interval: 10s
+#      timeout: 5s
+#      retries: 10
+#    networks:
+#      - money
 
 volumes:
   money_service_postgres:

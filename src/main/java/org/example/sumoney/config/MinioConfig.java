@@ -8,15 +8,15 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class MinioConfig {
 
-    @Bean
-    public MinioClient minioClient(
-            @Value("${minio.endpoint}") String endpoint,
-            @Value("${minio.access-key}") String accessKey,
-            @Value("${minio.secret-key}") String secretKey
-    ) {
-        return MinioClient.builder()
-                .endpoint(endpoint)
-                .credentials(accessKey, secretKey)
-                .build();
-    }
+//    @Bean
+//    public MinioClient minioClient(
+////            @Value("${minio.endpoint}") String endpoint,
+////            @Value("${minio.access-key}") String accessKey,
+////            @Value("${minio.secret-key}") String secretKey
+//    ) {
+////        return MinioClient.builder()
+////                .endpoint(endpoint)
+////                .credentials(accessKey, secretKey)
+////                .build();
+//    }
 }

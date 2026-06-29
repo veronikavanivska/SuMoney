@@ -89,22 +89,37 @@ public class ExpenseController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/{expenseId}/receipt")
-    public ResponseEntity<byte[]> getReceipt(@PathVariable Long delegationId, @PathVariable Long expenseId, Principal principal) {
-        Long userId = Long.valueOf(principal.getName());
+//    @GetMapping("/{expenseId}/receipt")
+//    public ResponseEntity<byte[]> getReceipt(@PathVariable Long delegationId, @PathVariable Long expenseId, Principal principal) {
+//        Long userId = Long.valueOf(principal.getName());
+//
+//        FileStorageService.StoredBytes file = expenseService.getReceiptFile(
+//                userId,
+//                delegationId,
+//                expenseId
+//        );
+//
+//        return ResponseEntity.ok()
+//                .header("Content-Disposition", "inline")
+//                .contentType(org.springframework.http.MediaType.parseMediaType(file.contentType()))
+//                .body(file.bytes());
+//    }
+@GetMapping("/{expenseId}/receipt-url")
+public ResponseEntity<String> getReceiptUrl(
+        @PathVariable Long delegationId,
+        @PathVariable Long expenseId,
+        Principal principal
+) {
+    Long userId = Long.valueOf(principal.getName());
 
-        FileStorageService.StoredBytes file = expenseService.getReceiptFile(
-                userId,
-                delegationId,
-                expenseId
-        );
+    String url = expenseService.getReceiptUrl(
+            userId,
+            delegationId,
+            expenseId
+    );
 
-        return ResponseEntity.ok()
-                .header("Content-Disposition", "inline")
-                .contentType(org.springframework.http.MediaType.parseMediaType(file.contentType()))
-                .body(file.bytes());
-    }
-
+    return ResponseEntity.ok(url);
+}
     @DeleteMapping("/{expenseId}")
     public ResponseEntity<String> deleteExpense(
             @PathVariable Long delegationId,
